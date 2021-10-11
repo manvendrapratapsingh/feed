@@ -5,11 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.know.androidnew.model.KooFeedModel
 import com.know.androidnew.repository.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /*View model class to hold the data*/
-class KooViewModel(private val repository: UserRepository) : ViewModel() {
+@HiltViewModel
+class KooViewModel @Inject constructor(private val repository: UserRepository) : ViewModel() {
 
 
     init {

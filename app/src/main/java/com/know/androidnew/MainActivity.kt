@@ -2,6 +2,7 @@ package com.know.androidnew
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.ui.AppBarConfiguration
@@ -16,14 +17,15 @@ import com.know.androidnew.model.Data
 import com.know.androidnew.network.ApiInterface
 import com.know.androidnew.network.RetrofitHelper
 import com.know.androidnew.repository.UserRepository
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var mRecyclerView: RecyclerView
-    private lateinit var kooViewModel: KooViewModel
+    private  val kooViewModel: KooViewModel by viewModels()
     private lateinit var shimmerLayout: ShimmerFrameLayout
     private var mKooListAdapter: KooAdapter? = null
 
@@ -41,12 +43,11 @@ class MainActivity : AppCompatActivity() {
         val LinearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         mRecyclerView.layoutManager = LinearLayoutManager;
         /*creating instance of ApiInterface using RetrofitHelper*/
-        val apiInterface = RetrofitHelper.getRetrofitInstance().create(ApiInterface::class.java)
+//        val apiInterface = RetrofitHelper.getRetrofitInstance().create(ApiInterface::class.java)
         /*creating instance of repository to get the viewModel factory
         * ViewModel factory is reposible for creating ViieqModel instacne with the help of Lifecycle Owner (Activity , Fragment)*/
-        val repository = UserRepository(apiInterface)
-        kooViewModel =
-            ViewModelProvider(this, ViewModelFactory(repository)).get(KooViewModel::class.java)
+//        val repository = UserRepository(apiInterface)
+//        kooViewModel = ViewModelProvider(this, ViewModelFactory(repository)).get(KooViewModel::class.java)
         kooViewModel.userliveData.observe(this) {
             setAdapter(it.data)
         }
